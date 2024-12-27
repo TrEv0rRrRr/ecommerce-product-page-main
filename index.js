@@ -29,8 +29,24 @@ const addToCartButton = document.getElementById("addToCartButton");
 const productsContainer = document.querySelector(".products");
 
 const leftArrow = document.getElementById("leftArrow");
+
 const rightArrow = document.getElementById("rightArrow");
+
 const mainImage = document.getElementById("mainImage");
+
+// MODALES
+
+const leftArrowModal = document.getElementById("leftArrowModal");
+
+const rightArrowModal = document.getElementById("rightArrowModal");
+
+const mainImageModal = document.getElementById("mainImageModal");
+
+const thumbnailItemModal = document.querySelectorAll(".thumbnail-item_modal");
+
+const mainProductDivModal = document.querySelector(".main__product_div_modal");
+
+const closeModal = document.querySelector(".close_modal");
 
 // FUNCTIONS
 
@@ -45,7 +61,7 @@ const generateProductInCart = (quantity) => {
   <div class="product flex flex-col gap-6 p-4">
 
     <div class="product__product flex gap-4 items-center">
-      <img src="./images/product-images/image-product-1-thumbnail.jpg" alt=""
+      <img src="./images/product-images/thumbnails/image-product-1-thumbnail.jpg" alt=""
         class="product__image__cart rounded-md">
 
       <div class="product__info">
@@ -88,7 +104,12 @@ const generateProductInCart = (quantity) => {
 let contador = 1;
 const totalImages = 4;
 
-const changeImage = (direction) => {
+const changeImage = (
+  imageElement,
+  direction,
+  thumbnailElements,
+  selectedClass
+) => {
   if (direction === "left") {
     contador--;
     if (contador < 1) contador = 1;
@@ -97,7 +118,36 @@ const changeImage = (direction) => {
     if (contador > totalImages) contador = totalImages;
   }
 
-  mainImage.src = `./images/product-images/image-product-${contador}.jpg`;
+  imageElement.src = `./images/product-images/image-product-${contador}.jpg`;
+
+  if (thumbnailElements && selectedClass) {
+    thumbnailElements.forEach((item, index) => {
+      if (index === contador - 1) {
+        item.classList.add(selectedClass);
+      } else {
+        item.classList.remove(selectedClass);
+      }
+    });
+  }
+};
+
+const changeThumbnailItem = (thumbnailElement, imageElement, selectedClass) => {
+  thumbnailElement.forEach((item, index) => {
+    item.addEventListener("click", () => {
+      const thumbnailImage = item.querySelector("img");
+      item.classList.add(selectedClass);
+      imageElement.src = thumbnailImage.src.replace(
+        /\/thumbnails|-thumbnail/g,
+        ""
+      );
+      thumbnailElement.forEach((otherItem) => {
+        if (otherItem != item) {
+          otherItem.classList.remove(selectedClass);
+        }
+      });
+      contador = index + 1;
+    });
+  });
 };
 
 // EVENTS
@@ -139,19 +189,6 @@ imageCarrito.addEventListener("click", (e) => {
     mostrandoCarrito = false;
     e.target.style.filter = "brightness(1)";
   }
-});
-
-thumbnailItem.forEach((item) => {
-  item.addEventListener("click", () => {
-    const thumbnailImage = item.querySelector("img");
-    item.classList.add("selected");
-    mainImage.src = thumbnailImage.src.replace(/\/thumbnails|-thumbnail/g, "");
-    thumbnailItem.forEach((otherItem) => {
-      if (otherItem != item) {
-        otherItem.classList.remove("selected");
-      }
-    });
-  });
 });
 
 quantityButtons.forEach((button) => {
@@ -197,5 +234,31 @@ addToCartButton.addEventListener("click", () => {
   }).showToast();
 });
 
-leftArrow.addEventListener("click", () => changeImage("left"));
-rightArrow.addEventListener("click", () => changeImage("right"));
+// ARROWS EVENTS
+
+leftArrow.addEventListener("click", () =>
+  changeImage(mainImage, "left", null, null)
+);
+rightArrow.addEventListener("click", () =>
+  changeImage(mainImage, "right", null, null)
+);
+
+leftArrowModal.addEventListener("click", () =>
+  changeImage(mainImageModal, "left", thumbnailItemModal, "selected_modal")
+);
+rightArrowModal.addEventListener("click", () =>
+  changeImage(mainImageModal, "right", thumbnailItemModal, "selected_modal")
+);
+
+changeThumbnailItem(thumbnailItem, mainImage, "selected");
+changeThumbnailItem(thumbnailItemModal, mainImageModal, "selected_modal");
+
+mainImage.addEventListener("click", () => {
+  modal.classList.replace("hidden", "block");
+  mainProductDivModal.style.display = "flex";
+});
+
+closeModal.addEventListener("click", () => {
+  mainProductDivModal.style.display = "none";
+  modal.classList.replace("block", "hidden");
+});

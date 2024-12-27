@@ -115,6 +115,14 @@
     color: #000;
   }
 
+  .main__product__image {
+    pointer-events: none;
+  }
+
+  .main__product_div_modal {
+    display: none;
+  }
+
   @media screen and (min-width: 1440px) {
     .container__header {
       border-bottom: 1px solid #eaeaea;
@@ -132,6 +140,7 @@
       padding: 5px;
       width: initial;
       gap: 35px;
+      z-index: 0;
     }
 
     .image-close {
@@ -206,6 +215,7 @@
     .cart-products {
       top: 70px;
       right: -90px;
+      z-index: 1;
     }
 
     .p-cart {
@@ -226,27 +236,34 @@
       display: none;
     }
 
-    .main__product__image {
+    .main__product__image,
+    .main__product__image_modal {
       object-fit: inital;
       border-radius: 15px;
       height: max-content;
+      pointer-events: all;
     }
 
     .thumbnail-item,
-    .image_thumbnail {
+    .image_thumbnail,
+    .thumbnail-item_modal,
+    .image_thumbnail_modal {
       border-radius: 0.5rem;
     }
 
-    .thumbnail-item:hover .image_thumbnail {
+    .thumbnail-item:hover .image_thumbnail,
+    .thumbnail-item_modal:hover .image_thumbnail_modal {
       filter: brightness(1) opacity(0.3);
     }
 
-    .selected {
+    .selected,
+    .selected_modal {
       outline: 2px solid #ff7d1a;
     }
 
-    .selected .image_thumbnail {
-      filter: brightness(1) opacity(0.3);
+    .selected .image_thumbnail,
+    .selected_modal .image_thumbnail_modal {
+      filter: brightness(1) opacity(.4);
     }
 
     .main__product__info__price {
@@ -293,6 +310,46 @@
 
     .main__product__info__quantity__buttons {
       width: 40%;
+    }
+
+    .main__product_div_modal {
+      display: none;
+      width: 30rem;
+      flex-direction: column;
+      height: 40rem;
+      z-index: 100;
+    }
+
+    .close_modal {
+      position: absolute;
+      top: -50px;
+      right: 0;
+      z-index: 100;
+      width: 20px;
+    }
+
+    .arrow_cont_modal {
+      top: 220px;
+      width: 3rem;
+      height: 3rem;
+      cursor: pointer;
+    }
+
+    #leftArrowModal {
+      left: -25px;
+    }
+
+    #rightArrowModal {
+      right: -25px;
+    }
+
+    .arrowModal {
+      stroke: #1D2026;
+      transition: stroke .2s ease;
+    }
+
+    .arrow_cont_modal:hover .arrowModal {
+      stroke: #ff7d1a;
     }
   }
 </style>
@@ -400,7 +457,7 @@
             </div>
           </div>
 
-          <div class=" arrow_cont absolute bg-white rounded-[100%] top-[150px] right-[20px] w-[35px] h-[35px]
+          <div class="arrow_cont absolute bg-white rounded-[100%] top-[150px] right-[20px] w-[35px] h-[35px]
             pl-[3px] flex items-center justify-center" id="rightArrow">
             <svg width="14" height="18" xmlns="http://www.w3.org/2000/svg">
               <path d="m2 1 8 8-8 8" stroke="#1D2026" stroke-width="3" fill="none" fill-rule="evenodd" />
@@ -475,6 +532,57 @@
 
       </div>
     </main>
+
+  </div>
+
+  <div class="main__product_div_modal absolute">
+
+    <img src="./images/icons/icon-close-desktop.svg" alt="" class="close_modal">
+
+    <div
+      class="arrow_cont_modal absolute bg-white rounded-[100%]  top-[150px] left-[20px] p-[3px] flex items-center justify-center z-10"
+      id="leftArrowModal">
+
+      <svg class="arrowModal" width="14" height="18" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11 1 3 9l8 8" stroke-width="3" fill="none" fill-rule="evenodd" />
+      </svg>
+    </div>
+
+    <div class="img-cont">
+      <img src="./images/product-images/image-product-1.jpg" alt="Fall Limited Edition Sneakers"
+        class="main__product__image_modal object-cover w-full h-[20rem]" id="mainImageModal">
+
+      <div class="main__product-thumbnails hidden Desktop-mq:block mt-8">
+
+        <ul class="thumbnail-list_modal flex justify-between">
+          <li class="thumbnail-item_modal selected_modal">
+            <img src="./images/product-images/thumbnails/image-product-1-thumbnail.jpg" alt=""
+              class="image_thumbnail_modal w-[6rem]">
+          </li>
+          <li class="thumbnail-item_modal">
+            <img src="./images/product-images/thumbnails/image-product-2-thumbnail.jpg" alt=""
+              class="image_thumbnail_modal w-[6rem]">
+          </li>
+          <li class="thumbnail-item_modal">
+            <img src="./images/product-images/thumbnails/image-product-3-thumbnail.jpg" alt=""
+              class="image_thumbnail_modal w-[6rem]">
+          </li>
+          <li class="thumbnail-item_modal">
+            <img src="./images/product-images/thumbnails/image-product-4-thumbnail.jpg" alt=""
+              class="image_thumbnail_modal w-[6rem]">
+          </li>
+        </ul>
+
+      </div>
+    </div>
+
+    <div
+      class="arrow_cont_modal absolute bg-white rounded-[100%] top-[150px] right-[20px] pl-[3px] flex items-center justify-center"
+      id="rightArrowModal">
+      <svg class="arrowModal" width="14" height="18" xmlns="http://www.w3.org/2000/svg">
+        <path d="m2 1 8 8-8 8" stroke-width="3" fill="none" fill-rule="evenodd" />
+      </svg>
+    </div>
 
   </div>
 
