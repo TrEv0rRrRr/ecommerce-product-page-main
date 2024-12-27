@@ -346,7 +346,7 @@
       <div class="header__separator flex items-center gap-6">
         <img class="image_carrito" src="./images/icons/icon-cart.svg" alt="">
 
-        <img class="image_avatar w-[28px]" src="./images/product-images/image-avatar.png" alt="">
+        <img class="image_avatar w-[28px]" src="./images/image-avatar.png" alt="">
 
         <div class="cart-products animate__animated hidden">
           <p class="p-cart">
@@ -366,7 +366,8 @@
         <div class="main__product_div relative w-full">
 
           <div
-            class="arrow_cont image_left absolute bg-white rounded-[100%]  top-[150px] left-[20px] w-[35px] h-[35px] p-[3px] flex items-center justify-center z-10">
+            class="arrow_cont absolute bg-white rounded-[100%]  top-[150px] left-[20px] w-[35px] h-[35px] p-[3px] flex items-center justify-center z-10"
+            id="leftArrow">
             <svg width="14" height="18" xmlns="http://www.w3.org/2000/svg">
               <path d="M11 1 3 9l8 8" stroke="#1D2026" stroke-width="3" fill="none" fill-rule="evenodd" />
             </svg>
@@ -374,24 +375,24 @@
 
           <div class="img-cont">
             <img src="./images/product-images/image-product-1.jpg" alt="Fall Limited Edition Sneakers"
-              class="main__product__image object-cover w-full h-[20rem]">
+              class="main__product__image object-cover w-full h-[20rem]" id="mainImage">
 
             <div class="main__product-thumbnails hidden Desktop-mq:block mt-8">
               <ul class="thumbnail-list flex justify-between">
                 <li class="thumbnail-item selected">
-                  <img src="./images/product-images/image-product-1-thumbnail.jpg" alt=""
+                  <img src="./images/product-images/thumbnails/image-product-1-thumbnail.jpg" alt=""
                     class="image_thumbnail w-[6rem]">
                 </li>
                 <li class="thumbnail-item">
-                  <img src="./images/product-images/image-product-2-thumbnail.jpg" alt=""
+                  <img src="./images/product-images/thumbnails/image-product-2-thumbnail.jpg" alt=""
                     class="image_thumbnail w-[6rem]">
                 </li>
                 <li class="thumbnail-item">
-                  <img src="./images/product-images/image-product-3-thumbnail.jpg" alt=""
+                  <img src="./images/product-images/thumbnails/image-product-3-thumbnail.jpg" alt=""
                     class="image_thumbnail w-[6rem]">
                 </li>
                 <li class="thumbnail-item">
-                  <img src="./images/product-images/image-product-4-thumbnail.jpg" alt=""
+                  <img src="./images/product-images/thumbnails/image-product-4-thumbnail.jpg" alt=""
                     class="image_thumbnail w-[6rem]">
                 </li>
               </ul>
@@ -399,8 +400,8 @@
             </div>
           </div>
 
-          <div class=" arrow_cont image_right absolute bg-white rounded-[100%] top-[150px] right-[20px] w-[35px] h-[35px]
-            pl-[3px] flex items-center justify-center">
+          <div class=" arrow_cont absolute bg-white rounded-[100%] top-[150px] right-[20px] w-[35px] h-[35px]
+            pl-[3px] flex items-center justify-center" id="rightArrow">
             <svg width="14" height="18" xmlns="http://www.w3.org/2000/svg">
               <path d="m2 1 8 8-8 8" stroke="#1D2026" stroke-width="3" fill="none" fill-rule="evenodd" />
             </svg>

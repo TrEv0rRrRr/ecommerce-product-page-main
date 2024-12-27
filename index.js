@@ -28,6 +28,10 @@ const addToCartButton = document.getElementById("addToCartButton");
 
 const productsContainer = document.querySelector(".products");
 
+const leftArrow = document.getElementById("leftArrow");
+const rightArrow = document.getElementById("rightArrow");
+const mainImage = document.getElementById("mainImage");
+
 // FUNCTIONS
 
 const manageShowEvent = (element, entranceAnimation, exitAnimation) => {
@@ -81,6 +85,21 @@ const generateProductInCart = (quantity) => {
     });
 };
 
+let contador = 1;
+const totalImages = 4;
+
+const changeImage = (direction) => {
+  if (direction === "left") {
+    contador--;
+    if (contador < 1) contador = 1;
+  } else if (direction === "right") {
+    contador++;
+    if (contador > totalImages) contador = totalImages;
+  }
+
+  mainImage.src = `./images/product-images/image-product-${contador}.jpg`;
+};
+
 // EVENTS
 
 headerImageOpenMenu.addEventListener("click", () => {
@@ -124,7 +143,9 @@ imageCarrito.addEventListener("click", (e) => {
 
 thumbnailItem.forEach((item) => {
   item.addEventListener("click", () => {
+    const thumbnailImage = item.querySelector("img");
     item.classList.add("selected");
+    mainImage.src = thumbnailImage.src.replace(/\/thumbnails|-thumbnail/g, "");
     thumbnailItem.forEach((otherItem) => {
       if (otherItem != item) {
         otherItem.classList.remove("selected");
@@ -175,3 +196,6 @@ addToCartButton.addEventListener("click", () => {
     stopOnFocus: true,
   }).showToast();
 });
+
+leftArrow.addEventListener("click", () => changeImage("left"));
+rightArrow.addEventListener("click", () => changeImage("right"));
